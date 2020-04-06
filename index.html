@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="header">
+        <h1>Color list generator</h1>
+        <div>
+            <input id='howManyColors' type="number"/>
+            <button id='howManyColorsBtn'>How many colors</button>
+        </div>
+    </div>
+    <div id="colors" class="colorList"></div>
+    <div class="textInputList">
+        <textarea id='colorsTextArea' class='textArea' rows="50"></textarea>
+    </div>
+</body>
+</html>
+<script src="./randomColor.js"></script>
+<script>
+
+    let colors = generateColors(20);
+    let colorDivGenerate = (color) =>{
+        let div = document.createElement('div');
+        div.classList = ['colorElement'];
+        div.style.backgroundColor = color;
+        return div;
+    };
+
+    let refreshTextArea = (colorList) =>{
+        let joinColors = colorList.join('\r\n');
+        document.getElementById('colorsTextArea').innerHTML = joinColors;
+    }
+
+    let refreshColors = (howManyColors) =>{
+        let colorsCount = document.getElementById('howManyColors').value;
+        if(!colorsCount || colorsCount==0){
+            colorsCount = howManyColors;
+        }
+        let colors = generateColors(colorsCount);
+        console.log(colors);
+        
+        for(let i=0; i < colors.length;i++){
+            var divColor = colorDivGenerate(colors[i]);
+            document.getElementById('colors').appendChild(divColor);
+        }
+        refreshTextArea(colors);
+    };
+    refreshColors(20);
+
+    document.getElementById('howManyColorsBtn').onclick = ()=>{
+        document.getElementById('colors').innerHTML = '';
+        refreshColors(document.getElementById('howManyColors').value);
+    };
+
+</script>
