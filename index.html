@@ -22,8 +22,10 @@
 </html>
 <script src="./randomColor.js"></script>
 <script>
-
+    
+    document.getElementById('howManyColors').value = 20;
     let colors = generateColors(20);
+    
     let colorDivGenerate = (color) =>{
         let div = document.createElement('div');
         div.classList = ['colorElement'];
@@ -42,7 +44,6 @@
             colorsCount = howManyColors;
         }
         let colors = generateColors(colorsCount);
-        console.log(colors);
         
         for(let i=0; i < colors.length;i++){
             var divColor = colorDivGenerate(colors[i]);
@@ -53,6 +54,12 @@
     refreshColors(20);
 
     document.getElementById('howManyColorsBtn').onclick = ()=>{
+        let colorsCount = document.getElementById('howManyColors').value;
+        if(colorsCount<=0){
+            document.getElementById('howManyColors').value = 1;
+            colorsCount = 1;
+        }
+
         document.getElementById('colors').innerHTML = '';
         refreshColors(document.getElementById('howManyColors').value);
     };
